@@ -23,7 +23,9 @@ STAGE=$(mktemp -d)
 trap 'rm -rf "$STAGE"' EXIT
 mkdir -p "$OUT" "$STAGE/$NAME"
 ditto "$LIB" "$STAGE/$NAME/lib"   # keeps the symbolic links and signatures as Apple made them
-cp "$HERE/License.pdf" "$STAGE/$NAME/"
+# Apple's image has its own licence beside redist/: that version's terms travel with its files.
+LICENSE="$LIB/../../License.rtf"; [ -e "$LICENSE" ] || LICENSE="$HERE/License.pdf"
+cp "$LICENSE" "$STAGE/$NAME/"
 COPYFILE_DISABLE=1 tar -cJf "$OUT/$NAME.tar.xz" --no-xattrs --options 'xz:threads=0' -C "$STAGE" "$NAME"
 printf '{ "version": "%s", "file": "%s.tar.xz", "sha256": "%s", "size": %s }\n' \
   "$VERSION" "$NAME" "$(shasum -a 256 "$OUT/$NAME.tar.xz" | cut -d ' ' -f 1)" "$(stat -f %z "$OUT/$NAME.tar.xz")" > "$OUT/package.json"

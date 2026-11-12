@@ -8,7 +8,8 @@ Apple, and `package.sh` refuses anything else.
 ## Licence
 
 D3DMetal is Apple's software under the **Apple Inc. Software License Agreement for Game Porting
-Toolkit** (`License.pdf`, also inside every archive). Read it before you use a release. In short:
+Toolkit** (`License.pdf`; every archive carries the licence of its own toolkit version). Read it
+before you use a release. In short:
 
 - You may use it only to develop, test or evaluate video games for Apple-branded products, and only
   on Apple-branded hardware.
@@ -23,10 +24,13 @@ The toolkit itself comes from Apple: https://developer.apple.com/games
 | Release | D3DMetal | Taken from |
 |---|---|---|
 | `3.0` | 3.0 | the Game Porting Toolkit 3.0 files in [Gcenx/game-porting-toolkit](https://github.com/Gcenx/game-porting-toolkit) 3.0-3 |
+| `4.0b3` | 4.0b3 | Apple's own image, `Game_Porting_Toolkit_4.0_beta_3.dmg` (the evaluation environment inside it) |
 
 ## Making a release
 
+The version is the one `D3DMetal.framework`'s Info.plist declares.
+
 ```sh
-./package.sh "/Volumes/Evaluation environment for Windows games 3.0/redist/lib" 3.0
-gh release create 3.0 dist/d3dmetal-3.0.tar.xz dist/package.json --title "D3DMetal 3.0"
+./package.sh "/Volumes/Evaluation environment for Windows games 4.0 beta 3/redist/lib" 4.0b3
+gh release create 4.0b3 dist/d3dmetal-4.0b3.tar.xz dist/package.json --title "D3DMetal 4.0b3"
 ```
